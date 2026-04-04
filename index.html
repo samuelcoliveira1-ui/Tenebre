@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Transmissão</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 20%;
+        }
+
+        button {
+            background-color: red;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TRANSMISSÃO DETECTADA</h1>
+    <p>Clique abaixo para ouvir</p>
+
+    <button onclick="tocarAudio()">OUVIR</button>
+
+    <audio id="audio">
+        <source src="morsecode_8duhka1o0er79vnqnrqbt1ucib.wav" type="audio/wav">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        function tocarAudio() {
+            document.getElementById("audio").play();
+        }
+    </script>
+
+</body>
+</html>
