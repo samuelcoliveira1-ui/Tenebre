@@ -1,109 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Player Morse</title>
-  <style>
-    body {
-      background: #111;
-      color: #eee;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A ORDEM - Terminal de Comando</title>
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #050505;
+            --alert-red: #ff003c;
+        }
 
-    .player {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-      text-align: center;
-    }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
 
-    button {
-      background: #900;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+        /* Efeito de TV antiga / Monitor de tubo */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.3)
+            );
+            background-size: 100% 4px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
 
-    button:hover {
-      background: #c00;
-    }
+        .terminal-container {
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid var(--neon-green);
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            position: relative;
+            z-index: 1;
+        }
 
-    .time {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #ccc;
-    }
-  </style>
+        header {
+            text-align: center;
+            border-bottom: 2px dashed var(--neon-green);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.5rem;
+        }
+
+        .metadata {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .metadata div {
+            padding: 5px;
+            background-color: rgba(0, 255, 65, 0.1);
+        }
+
+        .log-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .log-content p {
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+        }
+
+        .log-content p::before {
+            content: "> ";
+            opacity: 0.7;
+        }
+
+        .highlight {
+            font-weight: bold;
+            background-color: var(--neon-green);
+            color: var(--dark-bg);
+            padding: 0 5px;
+        }
+
+        .warning-footer {
+            margin-top: 40px;
+            color: var(--alert-red);
+            text-align: center;
+            border: 1px solid var(--alert-red);
+            padding: 15px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 60, 0.5); }
+            50% { opacity: 0.6; box-shadow: none; }
+        }
+    </style>
 </head>
 <body>
+    <div class="scanlines"></div>
+    
+    <div class="terminal-container">
+        <header>
+            <h1>A Ordem // Sistema Operacional</h1>
+        </header>
 
-<div class="player">
-  <h2>Áudio Criptografado</h2>
+        <div class="metadata">
+            <div><strong>CÓD:</strong> DIRETRIZ-ALFA</div>
+            <div><strong>LOCAL:</strong> SANTA DÁLIA, BR</div>
+            <div><strong>AUTORIA:</strong> E.A.</div>
+            <div><strong>STATUS:</strong> <span style="color: var(--alert-red);">PRIORIDADE MÁXIMA</span></div>
+        </div>
 
-  <audio id="audio" src="morsecodegenerator.org_1775341893930.wav"></audio>
+        <div class="log-content">
+            <p>Não há mais espaço para hesitação. As movimentações dos chamados Filhos do Éden deixaram de ser apenas rumor operacional e passaram a configurar uma interferência ativa no equilíbrio do que estamos monitorando.</p>
+            
+            <p>Os chamados Resquícios do Éden estão sendo tratados por eles como recurso, ferramenta ou até mesmo rota — como se fossem parte de um mapa para algo maior. E isso, por si só, já é perigoso o suficiente para justificar intervenção direta.</p>
+            
+            <p>Temos confirmação de que a organização conhecida como Flórida Express está atuando como fachada logística e operacional para deslocamento e contenção de áreas sensíveis, com foco atual em Santa Dália, no Brasil. Esse ponto específico entrou em prioridade máxima após detecção de atividade recorrente dos Filhos do Éden na região.</p>
+            
+            <p>Eles acreditam estar no controle da situação. Não estão.</p>
+            
+            <p>Os dados indicam que já localizaram pelo menos três resquícios confirmados — dois na Itália e um em território brasileiro. Isso explica a aceleração recente das movimentações deles. Não é exploração científica. É apropriação.</p>
+            
+            <p class="highlight">A Ordem não pode permitir que esse padrão continue.</p>
+            
+            <p>A partir deste momento, autorizo o envio imediato de agentes para Santa Dália, com instrução clara: contenção, observação e interrupção de qualquer tentativa de acesso não autorizado aos pontos ativos. Nenhuma interação direta com civis sem necessidade. Nenhum vazamento.</p>
+            
+            <p>Os Filhos do Éden devem ser monitorados de perto. Interferência discreta, mas constante. Se estão realmente tentando decifrar o que esses resquícios representam, então estão perigosamente próximos de algo que não deve ser compreendido por nenhum dos dois lados.</p>
+            
+            <p>E quanto mais eles avançam, mais claro fica: isso não é uma descoberta.</p>
+            
+            <p class="highlight">É um gatilho.</p>
+        </div>
 
-  <div>
-    <button onclick="playAudio()">▶️ Play</button>
-    <button onclick="pauseAudio()">⏸️ Pause</button>
-    <button onclick="restartAudio()">🔄 Reiniciar</button>
-  </div>
-
-  <div class="time">
-    <span id="current">00:00</span> /
-    <span id="duration">00:00</span>
-    <br>
-    Restante: <span id="remaining">00:00</span>
-  </div>
-</div>
-
-<script>
-  const audio = document.getElementById("audio");
-  const current = document.getElementById("current");
-  const duration = document.getElementById("duration");
-  const remaining = document.getElementById("remaining");
-
-  function formatTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  }
-
-  function playAudio() {
-    audio.play();
-  }
-
-  function pauseAudio() {
-    audio.pause();
-  }
-
-  function restartAudio() {
-    audio.currentTime = 0;
-    audio.play();
-  }
-
-  audio.addEventListener("loadedmetadata", () => {
-    duration.textContent = formatTime(audio.duration);
-  });
-
-  audio.addEventListener("timeupdate", () => {
-    current.textContent = formatTime(audio.currentTime);
-    remaining.textContent = formatTime(audio.duration - audio.currentTime);
-  });
-
-  // NÃO loopa automaticamente (padrão já é sem loop)
-  audio.addEventListener("ended", () => {
-    console.log("Áudio finalizado");
-  });
-</script>
-
+        <div class="warning-footer">
+            [!] LOG CRIPTOGRAFADO. FIM DA TRANSMISSÃO. [!]
+        </div>
+    </div>
 </body>
 </html>
