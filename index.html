@@ -3,157 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A ORDEM - Terminal de Comando</title>
+    <title>Contagem Regressiva - RPG</title>
     <style>
-        :root {
-            --neon-green: #00ff41;
-            --dark-bg: #050505;
-            --alert-red: #ff003c;
-        }
-
+        /* Estilos com temática de RPG (Escuro e Dourado) */
         body {
-            background-color: var(--dark-bg);
-            color: var(--neon-green);
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 40px 20px;
-            overflow-x: hidden;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-        }
-
-        /* Efeito de TV antiga / Monitor de tubo */
-        .scanlines {
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0,0,0,0.3) 50%,
-                rgba(0,0,0,0.3)
-            );
-            background-size: 100% 4px;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .terminal-container {
-            max-width: 800px;
-            width: 100%;
-            border: 1px solid var(--neon-green);
-            padding: 30px;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
+            height: 100vh;
+            margin: 0;
             text-align: center;
-            border-bottom: 2px dashed var(--neon-green);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
         }
 
         h1 {
-            margin: 0;
+            font-size: 2.5rem;
+            color: #d4af37; /* Dourado */
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
-        .metadata {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .metadata div {
-            padding: 5px;
-            background-color: rgba(0, 255, 65, 0.1);
-        }
-
-        .log-content {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .log-content p {
-            margin-bottom: 20px;
-            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
-        }
-
-        .log-content p::before {
-            content: "> ";
-            opacity: 0.7;
-        }
-
-        .highlight {
+        #timer {
+            font-size: 6rem;
             font-weight: bold;
-            background-color: var(--neon-green);
-            color: var(--dark-bg);
-            padding: 0 5px;
+            color: #ffffff;
+            text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.5);
+            margin: 20px 0;
+            letter-spacing: 5px;
         }
 
-        .warning-footer {
-            margin-top: 40px;
-            color: var(--alert-red);
-            text-align: center;
-            border: 1px solid var(--alert-red);
-            padding: 15px;
-            font-weight: bold;
-            animation: pulse 2s infinite;
+        .labels {
+            display: flex;
+            gap: 65px;
+            font-size: 1.2rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 60, 0.5); }
-            50% { opacity: 0.6; box-shadow: none; }
+        .mensagem-final {
+            color: #d4af37;
+            font-size: 4rem;
+            text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.8);
         }
     </style>
 </head>
 <body>
-    <div class="scanlines"></div>
-    
-    <div class="terminal-container">
-        <header>
-            <h1>A Ordem // Sistema Operacional</h1>
-        </header>
 
-        <div class="metadata">
-            <div><strong>CÓD:</strong> DIRETRIZ-ALFA</div>
-            <div><strong>LOCAL:</strong> SANTA DÁLIA, BR</div>
-            <div><strong>AUTORIA:</strong> E.A.</div>
-            <div><strong>STATUS:</strong> <span style="color: var(--alert-red);">PRIORIDADE MÁXIMA</span></div>
-        </div>
-
-        <div class="log-content">
-            <p>Não há mais espaço para hesitação. As movimentações dos chamados Filhos do Éden deixaram de ser apenas rumor operacional e passaram a configurar uma interferência ativa no equilíbrio do que estamos monitorando.</p>
-            
-            <p>Os chamados Resquícios do Éden estão sendo tratados por eles como recurso, ferramenta ou até mesmo rota — como se fossem parte de um mapa para algo maior. E isso, por si só, já é perigoso o suficiente para justificar intervenção direta.</p>
-            
-            <p>Temos confirmação de que a organização conhecida como Flórida Express está atuando como fachada logística e operacional para deslocamento e contenção de áreas sensíveis, com foco atual em Santa Dália, no Brasil. Esse ponto específico entrou em prioridade máxima após detecção de atividade recorrente dos Filhos do Éden na região.</p>
-            
-            <p>Eles acreditam estar no controle da situação. Não estão.</p>
-            
-            <p>Os dados indicam que já localizaram pelo menos três resquícios confirmados — dois na Itália e um em território brasileiro. Isso explica a aceleração recente das movimentações deles. Não é exploração científica. É apropriação.</p>
-            
-            <p class="highlight">A Ordem não pode permitir que esse padrão continue.</p>
-            
-            <p>A partir deste momento, autorizo o envio imediato de agentes para Santa Dália, com instrução clara: contenção, observação e interrupção de qualquer tentativa de acesso não autorizado aos pontos ativos. Nenhuma interação direta com civis sem necessidade. Nenhum vazamento.</p>
-            
-            <p>Os Filhos do Éden devem ser monitorados de perto. Interferência discreta, mas constante. Se estão realmente tentando decifrar o que esses resquícios representam, então estão perigosamente próximos de algo que não deve ser compreendido por nenhum dos dois lados.</p>
-            
-            <p>E quanto mais eles avançam, mais claro fica: isso não é uma descoberta.</p>
-            
-            <p class="highlight">É um gatilho.</p>
-        </div>
-
-        <div class="warning-footer">
-            [!] LOG CRIPTOGRAFADO. FIM DA TRANSMISSÃO. [!]
-        </div>
+    <h1>A Sessão Começa Em</h1>
+    <div id="timer">00:00:00</div>
+    <div class="labels" id="labels">
+        <span>Horas</span>
+        <span>Minutos</span>
+        <span>Segundos</span>
     </div>
+
+    <script>
+        function iniciarContagem() {
+            // Pega a data e hora atual no momento em que a página abre
+            const agora = new Date();
+            
+            // Cria a data alvo baseada em agora e avança 1 dia
+            const dataAlvo = new Date(agora);
+            dataAlvo.setDate(agora.getDate() + 1);
+            
+            // Configura o horário alvo estritamente para as 13:00:00
+            dataAlvo.setHours(13, 0, 0, 0);
+
+            const atualizarTimer = () => {
+                const tempoAtual = new Date().getTime();
+                const tempoRestante = dataAlvo.getTime() - tempoAtual;
+
+                // Se o tempo acabar
+                if (tempoRestante <= 0) {
+                    document.getElementById("timer").innerHTML = "ROLEM OS DADOS!";
+                    document.getElementById("timer").classList.add("mensagem-final");
+                    document.getElementById("labels").style.display = "none";
+                    clearInterval(intervalo);
+                    return;
+                }
+
+                // Cálculo convertendo os milissegundos direto para horas, minutos e segundos
+                const horas = Math.floor(tempoRestante / (1000 * 60 * 60));
+                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+                // Adiciona um "0" na frente de números menores que 10 (ex: 09, 08)
+                const horasFormatadas = String(horas).padStart(2, '0');
+                const minutosFormatados = String(minutos).padStart(2, '0');
+                const segundosFormatados = String(segundos).padStart(2, '0');
+
+                // Atualiza o HTML
+                document.getElementById("timer").innerHTML = 
+                    `${horasFormatadas}:${minutosFormatados}:${segundosFormatados}`;
+            };
+
+            // Atualiza imediatamente na tela e depois atualiza a cada 1 segundo (1000 ms)
+            atualizarTimer();
+            const intervalo = setInterval(atualizarTimer, 1000);
+        }
+
+        iniciarContagem();
+    </script>
 </body>
 </html>
