@@ -3,111 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contagem Regressiva - RPG</title>
+    <title>Sessão de RPG</title>
     <style>
-        /* Estilos com temática de RPG (Escuro e Dourado) */
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            background-color: #121212;
+            background-image: radial-gradient(circle, #2a2a2a 0%, #121212 80%);
+            color: #e0e0e0;
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
             text-align: center;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 40px 60px;
+            border: 2px solid #8b0000;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.8);
         }
 
         h1 {
-            font-size: 2.5rem;
             color: #d4af37; /* Dourado */
+            font-size: 2.5rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
         }
 
-        #timer {
-            font-size: 6rem;
+        #countdown {
+            font-size: 5rem;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.5);
-            margin: 20px 0;
+            text-shadow: 0 0 10px #8b0000;
+            font-family: 'Courier New', Courier, monospace;
             letter-spacing: 5px;
         }
 
-        .labels {
-            display: flex;
-            gap: 65px;
+        .subtitle {
+            margin-top: 20px;
             font-size: 1.2rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .mensagem-final {
-            color: #d4af37;
-            font-size: 4rem;
-            text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.8);
+            color: #aaaaaa;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h1>A Sessão Começa Em</h1>
-    <div id="timer">00:00:00</div>
-    <div class="labels" id="labels">
-        <span>Horas</span>
-        <span>Minutos</span>
-        <span>Segundos</span>
+    <div class="container">
+        <h1>Preparem suas fichas</h1>
+        <div id="countdown">00:00:00</div>
+        <div class="subtitle">A aventura começa às 13:00</div>
     </div>
 
     <script>
-        function iniciarContagem() {
-            // Pega a data e hora atual no momento em que a página abre
+        function atualizarContagem() {
+            // Pega a hora exata de agora
             const agora = new Date();
             
-            // Cria a data alvo baseada em agora e avança 1 dia
-            const dataAlvo = new Date(agora);
-            dataAlvo.setDate(agora.getDate() + 1);
-            
-            // Configura o horário alvo estritamente para as 13:00:00
-            dataAlvo.setHours(13, 0, 0, 0);
+            // Configura o alvo para as 13:00 de hoje
+            const alvo = new Date();
+            alvo.setHours(13, 0, 0, 0);
 
-            const atualizarTimer = () => {
-                const tempoAtual = new Date().getTime();
-                const tempoRestante = dataAlvo.getTime() - tempoAtual;
+            // Calcula a diferença em milissegundos
+            const diferenca = alvo - agora;
 
-                // Se o tempo acabar
-                if (tempoRestante <= 0) {
-                    document.getElementById("timer").innerHTML = "ROLEM OS DADOS!";
-                    document.getElementById("timer").classList.add("mensagem-final");
-                    document.getElementById("labels").style.display = "none";
-                    clearInterval(intervalo);
-                    return;
-                }
+            // Se a hora já passou das 13:00
+            if (diferenca <= 0) {
+                document.getElementById('countdown').innerHTML = "ROLAR INICIATIVA!";
+                document.getElementById('countdown').style.fontSize = "3rem";
+                document.getElementById('countdown').style.color = "#d4af37";
+                document.querySelector('.subtitle').style.display = 'none';
+                return;
+            }
 
-                // Cálculo convertendo os milissegundos direto para horas, minutos e segundos
-                const horas = Math.floor(tempoRestante / (1000 * 60 * 60));
-                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+            // Converte a diferença para horas, minutos e segundos
+            const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+            const segundos = Math.floor((diferenca / 1000) % 60);
 
-                // Adiciona um "0" na frente de números menores que 10 (ex: 09, 08)
-                const horasFormatadas = String(horas).padStart(2, '0');
-                const minutosFormatados = String(minutos).padStart(2, '0');
-                const segundosFormatados = String(segundos).padStart(2, '0');
+            // Formata para sempre ter dois dígitos (ex: 09, 05)
+            const horasFormatadas = String(horas).padStart(2, '0');
+            const minutosFormatados = String(minutos).padStart(2, '0');
+            const segundosFormatados = String(segundos).padStart(2, '0');
 
-                // Atualiza o HTML
-                document.getElementById("timer").innerHTML = 
-                    `${horasFormatadas}:${minutosFormatados}:${segundosFormatados}`;
-            };
-
-            // Atualiza imediatamente na tela e depois atualiza a cada 1 segundo (1000 ms)
-            atualizarTimer();
-            const intervalo = setInterval(atualizarTimer, 1000);
+            // Atualiza a tela com o tempo restante
+            document.getElementById('countdown').innerHTML = 
+                `${horasFormatadas}:${minutosFormatados}:${segundosFormatados}`;
         }
 
-        iniciarContagem();
+        // Atualiza a contagem a cada 1 segundo (1000 milissegundos)
+        setInterval(atualizarContagem, 1000);
+        
+        // Chama a função imediatamente para não ter delay na tela
+        atualizarContagem();
     </script>
+
 </body>
 </html>
